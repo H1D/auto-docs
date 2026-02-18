@@ -84,11 +84,37 @@ Add the `@` import to CLAUDE.md (create the file if needed):
 
 If CLAUDE.md already has content, add the import under a `## Project Documentation` heading. Don't modify existing content.
 
-### Phase 4: Report
+### Phase 4: Validate
+
+Run the TOON validation script to catch syntax errors in all generated files.
+
+First, ensure dependencies are installed (one-time):
+```bash
+npm install --prefix <skill-path>/scripts
+```
+
+Then validate:
+```bash
+node <skill-path>/scripts/validate.mjs .claude/docs
+```
+
+Where `<skill-path>` is the absolute path to this skill's directory (the folder containing this SKILL.md).
+
+This validates:
+- All `.toon` files (strict mode: array lengths, row counts, field consistency)
+- All ` ```toon ` blocks embedded in `.md` files
+
+If validation fails, fix the reported errors before proceeding. Common issues:
+- `[N]` count doesn't match actual row count
+- Mismatched column count in tabular array rows
+- Unquoted values containing commas or colons
+
+### Phase 5: Report
 
 Summarize what was generated:
 - Number of features documented
 - List of files created
+- Validation result (pass/fail with details)
 - Any areas where documentation is incomplete (couldn't determine values)
 - Suggestion to review and refine
 
@@ -124,6 +150,7 @@ After user confirms (or if running non-interactively):
 2. Update `index.toon` if features added/removed
 3. Update `[N]` counts in all modified TOON blocks
 4. Update the `updated` date in `index.toon`
+5. Run validation: `node <skill-path>/scripts/validate.mjs .claude/docs`
 
 ---
 
