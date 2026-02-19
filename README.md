@@ -7,7 +7,8 @@ Outputs to 5+ formats simultaneously so every tool benefits from one command:
 | Output | Tools |
 |--------|-------|
 | `AGENTS.md` | Codex, Gemini CLI, Jules, Copilot, Cursor, Windsurf, Aider, Roo Code, Kilo Code, Amp, OpenCode, and 20+ more |
-| `CLAUDE.md` + `.claude/docs/` | Claude Code (rich TOON progressive disclosure) |
+| `.ai/docs/` | Canonical source — rich TOON progressive disclosure |
+| `CLAUDE.md` | Claude Code (`@` import into `.ai/docs/`) |
 | `.cursor/rules/auto-docs.mdc` | Cursor |
 | `.github/copilot-instructions.md` | GitHub Copilot |
 
@@ -31,7 +32,7 @@ npx skills add H1D/auto-docs
 ```
 AGENTS.md                            # universal — 20+ tools read this
 CLAUDE.md                            # Claude Code entry point with @import
-.claude/docs/
+.ai/docs/
 ├── index.toon                       # always loaded — feature catalog (~100 tokens)
 ├── overview.md                      # project summary + stack
 ├── architecture.md                  # component map + data flow

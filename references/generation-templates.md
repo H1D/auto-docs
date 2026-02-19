@@ -15,13 +15,13 @@ framework: {{primary-framework}}
 updated: {{YYYY-MM-DD}}
 
 features[{{N}}]{name,path,status,layer}:
-  {{feature-name}},.claude/docs/features/{{feature-name}}.md,{{stable|active|wip|deprecated}},{{frontend|backend|fullstack|infra}}
+  {{feature-name}},.ai/docs/features/{{feature-name}}.md,{{stable|active|wip|deprecated}},{{frontend|backend|fullstack|infra}}
   ...
 
 docs[{{N}}]{type,path}:
-  architecture,.claude/docs/architecture.md
-  decisions,.claude/docs/decisions.md
-  dependencies,.claude/docs/dependencies.md
+  architecture,.ai/docs/architecture.md
+  decisions,.ai/docs/decisions.md
+  dependencies,.ai/docs/dependencies.md
 ```
 
 **Status values**: `stable` (rarely changes), `active` (under development), `wip` (incomplete), `deprecated` (being removed)
@@ -210,7 +210,7 @@ files[{{N}}]{path,purpose}:
 
 ## `AGENTS.md` — Universal (20+ tools)
 
-The most important output file. Read by Codex, Gemini CLI, Jules, GitHub Copilot, Cursor, Windsurf, Aider, Roo Code, Kilo Code, Amp, OpenCode, and many more. Combine content from `.claude/docs/` into a single self-contained Markdown file. Keep under **4000 tokens**.
+The most important output file. Read by Codex, Gemini CLI, Jules, GitHub Copilot, Cursor, Windsurf, Aider, Roo Code, Kilo Code, Amp, OpenCode, and many more. Combine content from `.ai/docs/` into a single self-contained Markdown file. Keep under **4000 tokens**.
 
 ```markdown
 # AGENTS.md
@@ -299,4 +299,4 @@ Plain Markdown. Content is the same as `AGENTS.md` body. Create `.github/` direc
 6. **Path accuracy** — all file paths must be verified to exist in the project
 7. **Adapt templates** — these are starting points. Add project-specific sections, remove irrelevant ones. A CLI tool won't have routes; a library won't have features in the same sense
 8. **AGENTS.md is the priority** — this reaches the most tools. Make it comprehensive but concise
-9. **Derive, don't duplicate** — write rich docs in `.claude/docs/` first, then condense into `AGENTS.md` and other tool files
+9. **Derive, don't duplicate** — write rich docs in `.ai/docs/` first, then condense into `AGENTS.md` and other tool files

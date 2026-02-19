@@ -87,15 +87,15 @@ framework: express
 updated: 2026-02-18
 
 features[4]{name,path,status,layer}:
-  auth,.claude/docs/features/auth.md,stable,backend
-  products,.claude/docs/features/products.md,stable,backend
-  orders,.claude/docs/features/orders.md,active,backend
-  payments,.claude/docs/features/payments.md,active,backend
+  auth,.ai/docs/features/auth.md,stable,backend
+  products,.ai/docs/features/products.md,stable,backend
+  orders,.ai/docs/features/orders.md,active,backend
+  payments,.ai/docs/features/payments.md,active,backend
 
 docs[3]{type,path}:
-  architecture,.claude/docs/architecture.md
-  decisions,.claude/docs/decisions.md
-  dependencies,.claude/docs/dependencies.md
+  architecture,.ai/docs/architecture.md
+  decisions,.ai/docs/decisions.md
+  dependencies,.ai/docs/dependencies.md
 ```
 
 ## Token Efficiency Tips

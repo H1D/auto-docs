@@ -4,7 +4,7 @@ description: >
   Auto-generate and maintain structured project documentation optimized for
   AI coding agents. Outputs to 5+ tool formats: AGENTS.md (universal, 20+ tools),
   CLAUDE.md, .cursor/rules/, .github/copilot-instructions.md, and rich
-  .claude/docs/ with TOON progressive disclosure.
+  .ai/docs/ with TOON progressive disclosure.
   Triggers: /auto-docs, "generate project docs", "document this project",
   "update docs", "refresh documentation"
 license: MIT
@@ -22,11 +22,11 @@ Generate and maintain structured project documentation optimized for AI coding a
 |--------|--------|--------------------|
 | **`AGENTS.md`** | Standard Markdown | Codex, Gemini CLI, Jules, Copilot, Cursor, Windsurf, Aider, Roo Code, Kilo Code, Amp, OpenCode, Devin, Factory, VS Code, Zed, and 20+ more |
 | **`CLAUDE.md`** | Markdown + `@` import | Claude Code |
-| **`.claude/docs/`** | TOON + Markdown (rich) | Claude Code (progressive disclosure) |
+| **`.ai/docs/`** | TOON + Markdown (rich) | Canonical source — all tool outputs derived from here |
 | **`.cursor/rules/`** | `.mdc` frontmatter + Markdown | Cursor |
 | **`.github/copilot-instructions.md`** | Markdown | GitHub Copilot |
 
-The canonical source of truth is `.claude/docs/` (rich TOON format with progressive disclosure). All other outputs are derived from it.
+The canonical source of truth is `.ai/docs/` (rich TOON format with progressive disclosure). All other outputs are derived from it.
 
 ## Three-Tier Progressive Disclosure
 
@@ -41,7 +41,7 @@ The canonical source of truth is `.claude/docs/` (rich TOON format with progress
 ### Generate Mode (default)
 
 Creates documentation from scratch for a project. Use when:
-- Running `/auto-docs` in a project with no `.claude/docs/`
+- Running `/auto-docs` in a project with no `.ai/docs/`
 - User says "generate project docs" or "document this project"
 
 ### Update Mode
@@ -49,7 +49,7 @@ Creates documentation from scratch for a project. Use when:
 Updates existing documentation to match current code. Use when:
 - Running `/auto-docs update`
 - User says "update docs" or "refresh documentation"
-- `.claude/docs/` already exists
+- `.ai/docs/` already exists
 
 ---
 
@@ -69,7 +69,7 @@ Read the reference files before generating:
 - `references/toon-syntax.md` — TOON format rules
 - `references/generation-templates.md` — templates for each file type
 
-Generate `.claude/docs/` files in this order:
+Generate `.ai/docs/` files in this order:
 1. `index.toon` — feature catalog and doc links
 2. `overview.md` — project summary and structure
 3. Feature files (`features/<name>.md`) — one per identified feature
@@ -86,13 +86,13 @@ Generate `.claude/docs/` files in this order:
 
 ### Phase 3: Distribute
 
-Generate tool-specific files from the `.claude/docs/` content. Read `references/generation-templates.md` for the `AGENTS.md` template.
+Generate tool-specific files from the `.ai/docs/` content. Read `references/generation-templates.md` for the `AGENTS.md` template.
 
 #### 3a. AGENTS.md (universal — 20+ tools)
 
 Create `AGENTS.md` at project root. This is the **most important output** — it's read by Codex, Gemini CLI, Jules, GitHub Copilot, Cursor, Windsurf, Aider, Roo Code, Kilo Code, Amp, OpenCode, and many more.
 
-Content (standard Markdown, combine from `.claude/docs/`):
+Content (standard Markdown, combine from `.ai/docs/`):
 1. **Project overview** — from `overview.md` (what it does, stack, structure)
 2. **Commands** — build, test, lint, dev commands from project manifest
 3. **Architecture** — condensed from `architecture.md` (components, data flow, patterns)
@@ -107,7 +107,7 @@ Add the `@` import to `CLAUDE.md` (create the file if needed):
 
 ```markdown
 ## Project Documentation
-@.claude/docs/index.toon
+@.ai/docs/index.toon
 ```
 
 If `CLAUDE.md` already has content, add the import under a `## Project Documentation` heading. Don't modify existing content.
@@ -142,7 +142,7 @@ npm install --prefix <skill-path>/scripts
 
 Then validate:
 ```bash
-node <skill-path>/scripts/validate.mjs .claude/docs
+node <skill-path>/scripts/validate.mjs .ai/docs
 ```
 
 Where `<skill-path>` is the absolute path to this skill's directory (the folder containing this SKILL.md).
@@ -162,7 +162,8 @@ Summarize what was generated:
 - Number of features documented
 - List of ALL files created, grouped by tool:
   - **Universal**: `AGENTS.md`
-  - **Claude Code**: `CLAUDE.md`, `.claude/docs/` (list files)
+  - **Canonical**: `.ai/docs/` (list files)
+  - **Claude Code**: `CLAUDE.md` (with `@` import)
   - **Cursor**: `.cursor/rules/auto-docs.mdc`
   - **GitHub Copilot**: `.github/copilot-instructions.md`
 - Validation result (pass/fail with details)
@@ -175,7 +176,7 @@ Summarize what was generated:
 
 ### Phase 1: Diff Detection
 
-1. Read current `.claude/docs/index.toon` to know what's documented
+1. Read current `.ai/docs/index.toon` to know what's documented
 2. Scan the project for changes:
    - New directories/modules not in any feature file
    - New routes not documented
@@ -197,18 +198,18 @@ Documentation drift detected:
 ### Phase 3: Apply Updates
 
 After user confirms (or if running non-interactively):
-1. Update affected `.claude/docs/` files
+1. Update affected `.ai/docs/` files
 2. Update `index.toon` if features added/removed
 3. Update `[N]` counts in all modified TOON blocks
 4. Update the `updated` date in `index.toon`
-5. Run validation: `node <skill-path>/scripts/validate.mjs .claude/docs`
-6. **Re-derive all tool-specific files** — regenerate `AGENTS.md`, `.cursor/rules/auto-docs.mdc`, `.github/copilot-instructions.md` from updated `.claude/docs/`
+5. Run validation: `node <skill-path>/scripts/validate.mjs .ai/docs`
+6. **Re-derive all tool-specific files** — regenerate `AGENTS.md`, `.cursor/rules/auto-docs.mdc`, `.github/copilot-instructions.md` from updated `.ai/docs/`
 
 ---
 
 ## Context Loading Guide
 
-When working on a project with `.claude/docs/`, load files based on task:
+When working on a project with `.ai/docs/`, load files based on task:
 
 | Task Type | Load These Files |
 |-----------|-----------------|
